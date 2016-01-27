@@ -4,11 +4,12 @@
 										   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 										   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <bean id="hessianService" class="com.henry.xi.hessian.impl.HessianMathService" autowire="byType"/>
-
-    <bean name="/hessianService" class="org.springframework.remoting.caucho.HessianServiceExporter">
-        <property name="service" ref="hessianService"/>
-        <property name="serviceInterface" value="com.henry.xi.hessian.MathService"/>
+    <bean id="hessianService"
+          name="hessianService"
+          class="org.springframework.remoting.caucho.HessianProxyFactoryBean" >
+        <property name="serviceUrl" value="http://127.0.0.1:8080/hessian/hessianService" />
+        <property name="serviceInterface" value="com.henry.xi.hessian.MathService" />
+        <property name="readTimeout" value="10000" />
     </bean>
 
 </beans>
